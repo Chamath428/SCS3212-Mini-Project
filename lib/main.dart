@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:mini_project/Services/authServer.dart';
+import 'package:mini_project/pages/Home.dart';
 import 'package:mini_project/pages/Signin.dart';
 import 'package:mini_project/pages/Signup.dart';
 
@@ -18,12 +20,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp>{
-  firebase_auth.FirebaseAuth firebaseAuth =firebase_auth.FirebaseAuth.instance;
+
+  Widget currentPage = SignInPage();
+  AuthClass  authClass = AuthClass();
+
+  @override
+  void initState(){
+    super.initState();
+    checkLogin();
+  }
+
+  void checkLogin()async{
+    String? token = await authClass.getToken();
+    if(token!=null){
+      setState(() {
+        currentPage=HomePage();
+      });
+    }
+  }
 
   @override
   Widget build (BuildContext context){
     return MaterialApp(
-      home: SignInPage(),
+      home: currentPage,
     );
   }
 }
