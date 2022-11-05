@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:mini_project/Services/authServer.dart';
 import 'package:mini_project/pages/Home.dart';
 import 'package:mini_project/pages/Signin.dart';
 
@@ -17,6 +18,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool circular = false;
+  AuthClass authClass = AuthClass();
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,18 @@ class _SignUpPageState extends State<SignUpPage> {
               buttonItem(
                   "assets/google.svg",
                   "Signup with google",
-                  25),
+                  25,
+                      () async {
+                    await authClass.googleSignIn(context);
+                  }
+                  ),
               SizedBox(
                 height: 20,
               ),
               buttonItem(
                   "assets/phone.svg",
                   "Signup with phone",
-                  25),
+                  25,(){}),
               SizedBox(
                 height: 20,
               ),
@@ -105,35 +111,38 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget buttonItem (String path,String name,double size){
-    return(
-        Container(
-          width: MediaQuery.of(context).size.width-60,
-          height: 60,
-          child:Card(
-            color: Colors.black,
-            elevation: 8,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                    width: 1,
-                    color: Colors.grey
-                )
+  Widget buttonItem (String path,String name,double size,Function onTap){
+    return InkWell(
+      onTap:(){onTap();},
+      child: (
+          Container(
+            width: MediaQuery.of(context).size.width-60,
+            height: 60,
+            child:Card(
+              color: Colors.black,
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(
+                      width: 1,
+                      color: Colors.grey
+                  )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    path,
+                    height: size,
+                    width: size,
+                  ),
+                  SizedBox(width: 25,),
+                  Text(name,style: TextStyle(color: Colors.white,fontSize: 17),),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  path,
-                  height: size,
-                  width: size,
-                ),
-                SizedBox(width: 25,),
-                Text(name,style: TextStyle(color: Colors.white,fontSize: 17),),
-              ],
-            ),
-          ),
-        )
+          )
+      ),
     );
   }
 
