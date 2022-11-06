@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project/Services/authServer.dart';
+import 'package:mini_project/pages/Profile.dart';
 import 'package:mini_project/pages/Resip.dart';
 import 'package:mini_project/pages/ResipCard.dart';
 import 'package:mini_project/pages/Signup.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/profile.svg"),
+            backgroundImage: AssetImage("assets/profile.jpg"),
           ),
           SizedBox(
             width: 25,
@@ -91,10 +92,15 @@ class _HomePageState extends State<HomePage> {
               label: "add",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              size: 32,
-              color: Colors.white,
+            icon: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (builder)=>ViewProfile()));
+              },
+              child: Icon(
+                Icons.settings,
+                size: 32,
+                color: Colors.white,
+              ),
             ),
               label: "settings",
           ),

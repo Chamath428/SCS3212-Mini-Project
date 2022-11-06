@@ -41,6 +41,7 @@ dependencies:
   google_sign_in: ^5.0.2
   flutter_secure_storage: ^4.2.0
   cloud_firestore: ^2.5.1
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:
