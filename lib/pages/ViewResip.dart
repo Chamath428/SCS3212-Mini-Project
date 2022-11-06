@@ -60,17 +60,33 @@ class _ViewResipState extends State<ViewResip> {
                       size: 28,
                     ),
                   ),
-                  IconButton(
-                      onPressed: (){
-                        setState(() {
-                          isEditable=!isEditable;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.edit,
-                        color: isEditable?Colors.red:Colors.white,
-                        size: 28,
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: (){
+                          FirebaseFirestore.instance.collection("todo").doc(widget.id).delete().then((value){
+                            Navigator.pop(context);
+                          });
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                          size: 28,
+                        ),
                       ),
+                      IconButton(
+                          onPressed: (){
+                            setState(() {
+                              isEditable=!isEditable;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: isEditable?Colors.blue:Colors.white,
+                            size: 28,
+                          ),
+                      ),
+                    ],
                   ),
                 ],
               ),
