@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:mini_project/Services/authServer.dart';
 import 'package:mini_project/pages/Home.dart';
+import 'package:mini_project/pages/Resip.dart';
 import 'package:mini_project/pages/Signin.dart';
 import 'package:mini_project/pages/Signup.dart';
 
@@ -42,7 +43,7 @@ class _MyAppState extends State<MyApp>{
   @override
   Widget build (BuildContext context){
     return MaterialApp(
-      home: currentPage,
+      home: HomePage(),
     );
   }
 }
